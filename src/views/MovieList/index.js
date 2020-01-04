@@ -27,7 +27,7 @@ function MovieList() {
 const Container = styled.div`
   background-color: ${props => props.theme.colors.backgroundPrimary};
   min-height: 100vh;
-  padding: 42px 20px;
+  padding: 42px 0px 42px 20px;
 `;
 
 const Title = styled.h1`
@@ -41,13 +41,11 @@ const Title = styled.h1`
 const MovieGridContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const MovieContainer = styled.div`
   margin-right: 15px;
-  &:last-child {
-    margin-right: 0;
-  }
 `;
 
 export default MovieList;
