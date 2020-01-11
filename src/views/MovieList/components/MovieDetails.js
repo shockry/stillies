@@ -19,10 +19,8 @@ function MovieDetails(props) {
   return (
     <Container>
       <BackButton onClick={() => history.goBack()}>Back to list</BackButton>
-      <PosterAndTitle>
-        <Title>{title}</Title>
-        <Poster src={poster} alt={`${title} poster`} />
-      </PosterAndTitle>
+      <Poster src={poster} alt={`${title} poster`} />
+      <Title>{title}</Title>
       <Title>{description}</Title>
     </Container>
   );
@@ -32,13 +30,9 @@ const Container = styled.div`
   background-color: ${props => props.theme.colors.backgroundSecondary};
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
-`;
-
-const PosterAndTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const Poster = styled.img`
