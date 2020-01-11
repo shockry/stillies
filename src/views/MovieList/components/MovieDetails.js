@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
+import { ArrowLeftCircle } from "react-feather";
 import { useParams, useHistory } from "react-router-dom";
 import socketContext from "../../../contexts/socket";
-import { ArrowLeftCircle } from "react-feather";
+import { EVENT_TYPES } from "../../../constants";
 
 function MovieDetails(props) {
   const { movieId } = useParams();
@@ -30,13 +31,15 @@ function MovieDetails(props) {
       <WatchButtonsContainer>
         <button
           onClick={() =>
-            socket.emit("watch/trailer", { title, url: trailerUrl })
+            socket.emit(EVENT_TYPES.watchTrailer, { title, trailerUrl })
           }
         >
           Watch trailer
         </button>
         <button
-          onClick={() => socket.emit("watch/movie", { title, url: movieUrl })}
+          onClick={() =>
+            socket.emit(EVENT_TYPES.watchMovie, { title, movieUrl })
+          }
         >
           Watch movie
         </button>

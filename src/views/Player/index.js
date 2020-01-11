@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import socketContext from "../../contexts/socket";
+import { EVENT_TYPES } from "../../constants";
 
 const VIDEO_TYPES = {
   youtube: "youtube",
@@ -7,61 +9,28 @@ const VIDEO_TYPES = {
 
 function Player() {
   const [nowPlaying, setNowPlaying] = useState(null);
+  const socket = useContext(socketContext);
+
+  useEffect(() => {
+    socket.on(EVENT_TYPES.watchTrailer, movie => {
+      setNowPlaying({
+        type: VIDEO_TYPES.youtube,
+        src: movie.trailerUrl
+      });
+    });
+    return () => socket.off(EVENT_TYPES.watchTrailer);
+  }, [nowPlaying, socket]);
 
   if (!nowPlaying) {
-    return (
-      <div>
-        Waiting awkwardly
-        <button
-          onClick={() =>
-            setNowPlaying({
-              type: VIDEO_TYPES.youtube,
-              src: "https://www.youtube.com/embed/-76o69txkZs"
-            })
-          }
-        >
-          Game night trailer
-        </button>
-        <button
-          onClick={() =>
-            setNowPlaying({
-              type: VIDEO_TYPES.movie,
-              src: "http://localhost:3030/Game%20Night.m4v"
-            })
-          }
-        >
-          Game night
-        </button>
-      </div>
-    );
+    return <div>Waiting awkwardly</div>;
   }
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <button
-        onClick={() =>
-          setNowPlaying({
-            type: VIDEO_TYPES.youtube,
-            src: "https://www.youtube.com/embed/-76o69txkZs"
-          })
-        }
-      >
-        Game night trailer
-      </button>
-      <button
-        onClick={() =>
-          setNowPlaying({
-            type: VIDEO_TYPES.movie,
-            src: "http://localhost:3030/Game%20Night.m4v"
-          })
-        }
-      >
-        Game night
-      </button>
       {nowPlaying.type === VIDEO_TYPES.youtube ? (
         <iframe
           allow="autoplay"
-          style={{ width: "100%", minHeight: "100vh" }}
+          style={{ width: "100%", minHeight: "100vh", border: "none" }}
           src={`${nowPlaying.src}?autoplay=1`}
           title="trailer"
         />

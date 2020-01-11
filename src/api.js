@@ -14,6 +14,16 @@ export async function getMovieList() {
         "https://images-na.ssl-images-amazon.com/images/I/91bMWp2+xOL._RI_.jpg"
     },
     {
+      title: "Game night",
+      trailerUrl: "https://www.youtube.com/embed/-76o69txkZs",
+      movieUrl: "http://localhost:3030/Game%20Night.m4v",
+      description:
+        "A group of friends go into a gaming night that went wrong, also funny",
+      duration: "120 mins.",
+      poster:
+        "https://images-na.ssl-images-amazon.com/images/I/811EftxWNdL._SL1500_.jpg"
+    },
+    {
       title: "CATS!",
       description: "People who are also cats. Oh god..",
       duration: "109 mins.",
