@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import MovieList from "./views/MovieList";
+import Player from "./views/Player";
 
 const theme = {
   colors: {
@@ -17,6 +18,9 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <Switch>
+          <Route exact path="/player">
+            <Player />
+          </Route>
           <Route exact path="/">
             <MovieList />
           </Route>
