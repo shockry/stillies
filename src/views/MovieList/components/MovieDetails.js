@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ArrowLeftCircle, PlayCircle, PauseCircle } from "react-feather";
 import { useParams, useHistory } from "react-router-dom";
 import socketContext from "../../../contexts/socket";
-import { EVENT_TYPES } from "../../../constants";
+import { EVENT_TYPES, THEME } from "../../../constants";
 
 function MovieDetails(props) {
   const { movieId } = useParams();
@@ -29,25 +29,29 @@ function MovieDetails(props) {
       <Poster src={poster} alt={`${title} poster`} />
       <Title>{title}</Title>
       <WatchButtonsContainer>
-        <button
+        <Button
           onClick={() =>
             socket.emit(EVENT_TYPES.watchTrailer, { title, trailerUrl })
           }
         >
           Watch trailer
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() =>
             socket.emit(EVENT_TYPES.watchMovie, { title, movieUrl })
           }
-        ></button>
-        <button onClick={() => socket.emit(EVENT_TYPES.pauseTrailer)}>
-          <PauseCircle />
-        </button>
-        <button onClick={() => socket.emit(EVENT_TYPES.playTrailer)}>
-          <PlayCircle />
-        </button>
+        >
+          Watch movie
+        </Button>
       </WatchButtonsContainer>
+      <VideoControlsContainer>
+        <Button onClick={() => socket.emit(EVENT_TYPES.pauseTrailer)}>
+          <PauseCircle size={THEME.spacing.xLarge} />
+        </Button>
+        <Button onClick={() => socket.emit(EVENT_TYPES.playTrailer)}>
+          <PlayCircle size={THEME.spacing.xLarge} />
+        </Button>
+      </VideoControlsContainer>
       <Title>{description}</Title>
     </Container>
   );
@@ -86,6 +90,29 @@ const BackButton = styled(Title)`
   margin-left: ${props => props.theme.spacing.small}px;
   margin-bottom: ${props => props.theme.spacing.small}px;
   margin-top: ${props => props.theme.spacing.small}px;
+`;
+
+const VideoControlsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: ${props => props.theme.spacing.small}px;
+`;
+
+const Button = styled.button`
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: ${props => props.theme.spacing.large}px;
+  background-color: ${props => props.theme.colors.secondary};
+  border-radius: ${props => props.theme.spacing.small}px;
+  padding: ${props => props.theme.spacing.small}px;
+  & > svg {
+    vertical-align: middle;
+  }
+  margin-right: ${props => props.theme.spacing.xSmall}px;
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 export default MovieDetails;
