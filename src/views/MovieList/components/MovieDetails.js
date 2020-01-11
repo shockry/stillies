@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
-import { ArrowLeftCircle } from "react-feather";
+import { ArrowLeftCircle, PlayCircle, PauseCircle } from "react-feather";
 import { useParams, useHistory } from "react-router-dom";
 import socketContext from "../../../contexts/socket";
 import { EVENT_TYPES } from "../../../constants";
@@ -40,8 +40,12 @@ function MovieDetails(props) {
           onClick={() =>
             socket.emit(EVENT_TYPES.watchMovie, { title, movieUrl })
           }
-        >
-          Watch movie
+        ></button>
+        <button onClick={() => socket.emit(EVENT_TYPES.pauseTrailer)}>
+          <PauseCircle />
+        </button>
+        <button onClick={() => socket.emit(EVENT_TYPES.playTrailer)}>
+          <PlayCircle />
         </button>
       </WatchButtonsContainer>
       <Title>{description}</Title>

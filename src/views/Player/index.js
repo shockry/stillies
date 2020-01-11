@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
+import YouTube from "@u-wave/react-youtube";
 import socketContext from "../../contexts/socket";
 import { EVENT_TYPES } from "../../constants";
+import styled from "styled-components";
 
 const VIDEO_TYPES = {
   youtube: "youtube",
@@ -9,6 +11,7 @@ const VIDEO_TYPES = {
 
 function Player() {
   const [nowPlaying, setNowPlaying] = useState(null);
+  const [paused, setPaused] = useState(false);
   const socket = useContext(socketContext);
 
   useEffect(() => {
@@ -18,7 +21,20 @@ function Player() {
         src: movie.trailerUrl
       });
     });
-    return () => socket.off(EVENT_TYPES.watchTrailer);
+
+    socket.on(EVENT_TYPES.pauseTrailer, () => {
+      setPaused(true);
+    });
+
+    socket.on(EVENT_TYPES.playTrailer, () => {
+      setPaused(false);
+    });
+
+    return () => {
+      socket.off(EVENT_TYPES.watchTrailer);
+      socket.off(EVENT_TYPES.pauseTrailer);
+      socket.off(EVENT_TYPES.playTrailer);
+    };
   }, [nowPlaying, socket]);
 
   if (!nowPlaying) {
@@ -28,11 +44,10 @@ function Player() {
   return (
     <div style={{ minHeight: "100vh" }}>
       {nowPlaying.type === VIDEO_TYPES.youtube ? (
-        <iframe
-          allow="autoplay"
-          style={{ width: "100%", minHeight: "100vh", border: "none" }}
-          src={`${nowPlaying.src}?autoplay=1`}
-          title="trailer"
+        <YouTubePlayerStyled
+          video={nowPlaying.src.substring(nowPlaying.src.lastIndexOf("/") + 1)}
+          autoplay
+          paused={paused}
         />
       ) : (
         <video
@@ -44,5 +59,11 @@ function Player() {
     </div>
   );
 }
+
+const YouTubePlayerStyled = styled(YouTube)`
+  width: 100%;
+  min-height: 100vh;
+  border: none;
+`;
 
 export default Player;
