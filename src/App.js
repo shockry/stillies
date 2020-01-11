@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/player">
             <Player />
           </Route>
-          <Route exact path="/">
+          <Route path="/movielist">
             <MovieList />
           </Route>
           <Route>
