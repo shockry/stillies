@@ -15,7 +15,7 @@ export async function getMovieList() {
     },
     {
       title: "Game night",
-      trailerUrl: "https://www.youtube.com/embed/-76o69txkZs",
+      trailerUrl: "https://www.youtube.com/watch?v=-76o69txkZs",
       movieUrl: "http://localhost:3030/Game%20Night.m4v",
       description:
         "A group of friends go into a gaming night that went wrong, also funny",
