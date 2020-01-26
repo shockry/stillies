@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { getMovieList } from "../../api";
 import Movie from "./components/Movie";
 import MovieDetails from "./components/MovieDetails";
 import { useRouteMatch, Route, Link } from "react-router-dom";
+import socketContext from "../../contexts/socket";
+import { EVENT_TYPES } from "../../constants";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
+  const socket = useContext(socketContext);
   const { path, url } = useRouteMatch();
 
   useEffect(() => {
-    getMovieList().then(setMovies);
-  }, []);
+    socket.emit(EVENT_TYPES.getMovies);
+    socket.on(EVENT_TYPES.setMovies, setMovies);
+
+    return () => {
+      socket.off(EVENT_TYPES.setMovies);
+    };
+  }, [socket]);
+
+  if (movies.length === 0) {
+    return <Container>Getting movie list...</Container>;
+  }
 
   return (
     <Container>
@@ -36,6 +47,7 @@ function MovieList() {
 
 const Container = styled.div`
   background-color: ${props => props.theme.colors.backgroundPrimary};
+  color: ${props => props.theme.colors.primary};
   min-height: 100vh;
   padding: 42px 0px 42px 20px;
   position: relative;
@@ -44,7 +56,6 @@ const Container = styled.div`
 const Title = styled.h1`
   text-align: center;
   font-size: 32px;
-  color: ${props => props.theme.colors.primary};
   margin-bottom: 30px;
   margin-top: 0;
 `;
