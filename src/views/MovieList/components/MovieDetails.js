@@ -20,7 +20,7 @@ function MovieDetails(props) {
     return null;
   }
 
-  const { title, description, poster, trailer, movieUrl } = movies[movieId];
+  const { title, description, poster, trailer, nameOnSystem } = movies[movieId];
   return (
     <Container>
       <BackButton onClick={() => history.goBack()}>
@@ -41,7 +41,7 @@ function MovieDetails(props) {
         </Button>
         <Button
           onClick={() =>
-            socket.emit(EVENT_TYPES.watchMovie, { title, movieUrl })
+            socket.emit(EVENT_TYPES.watchMovie, { title, nameOnSystem })
           }
         >
           Watch movie
