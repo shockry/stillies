@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Movie from "./components/Movie";
 import MovieDetails from "./components/MovieDetails";
-import { useRouteMatch, Route, Link } from "react-router-dom";
+import { useRouteMatch, Route, Link as RouterLink } from "react-router-dom";
 import socketContext from "../../contexts/socket";
 import { EVENT_TYPES } from "../../constants";
 
@@ -76,6 +76,10 @@ const MovieDetailsContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+`;
+
+const Link = styled(RouterLink)`
+  text-decoration: none;
 `;
 
 export default MovieList;

@@ -5,29 +5,31 @@ import { useParams, useHistory } from "react-router-dom";
 import socketContext from "../../../contexts/socket";
 import { EVENT_TYPES, THEME } from "../../../constants";
 
-function MovieDetails(props) {
+function MovieDetails({ movies }) {
   const { movieId } = useParams();
   const history = useHistory();
   const socket = useContext(socketContext);
-
-  const { movies } = props;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   if (!movies || !movies[movieId]) {
-    return null;
+    return <Container>Something is wrong, try another movie maybe?</Container>;
   }
 
-  const { title, description, poster, trailer, nameOnSystem } = movies[movieId];
+  const { title, description, poster, year, trailer, nameOnSystem } = movies[
+    movieId
+  ];
   return (
     <Container>
-      <BackButton onClick={() => history.goBack()}>
+      <BackButton onClick={history.goBack}>
         <ArrowLeftCircle size="32" />
       </BackButton>
       <Poster src={poster} alt={`${title} poster`} />
       <Title>{title}</Title>
+      <Year>{year}</Year>
+
       <WatchButtonsContainer>
         <Button
           onClick={() =>
@@ -67,6 +69,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  padding-bottom: ${(props) => props.theme.spacing.large}px;
 `;
 
 const Poster = styled.img`
@@ -79,8 +82,13 @@ const Title = styled.p`
   text-align: center;
   font-size: 32px;
   color: ${(props) => props.theme.colors.primary};
-  margin-bottom: 30px;
   margin-top: 0;
+  margin-bottom: 0;
+`;
+
+const Year = styled(Title)`
+  font-size: 12px;
+  margin-bottom: 30px;
 `;
 
 const WatchButtonsContainer = styled.div`

@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Movie(props) {
-  const { title, poster } = props;
-
+function Movie({ title, poster }) {
   return (
     <Container>
       <Img src={poster} alt={title} />
@@ -28,7 +26,7 @@ const Img = styled.img`
 const Title = styled.p`
   font-size: 14px;
   font-weight: bold;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
 `;
 
 export default Movie;
