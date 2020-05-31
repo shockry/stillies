@@ -28,7 +28,7 @@ function MovieList() {
     <Container>
       <Title>Movie list!</Title>
       <MovieGridContainer>
-        {[...movies, ...movies, ...movies, ...movies].map((movie, index) => (
+        {movies.map((movie, index) => (
           <Link to={`${url}/${index}`} key={index}>
             <MovieContainer>
               <Movie {...movie} />
@@ -38,7 +38,7 @@ function MovieList() {
       </MovieGridContainer>
       <Route path={`${path}/:movieId`}>
         <MovieDetailsContainer>
-          <MovieDetails movies={[...movies, ...movies, ...movies, ...movies]} />
+          <MovieDetails movies={movies} />
         </MovieDetailsContainer>
       </Route>
     </Container>
@@ -46,8 +46,8 @@ function MovieList() {
 }
 
 const Container = styled.div`
-  background-color: ${props => props.theme.colors.backgroundPrimary};
-  color: ${props => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.backgroundPrimary};
+  color: ${(props) => props.theme.colors.primary};
   min-height: 100vh;
   padding: 42px 0px 42px 20px;
   position: relative;

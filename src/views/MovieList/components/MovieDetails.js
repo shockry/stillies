@@ -33,7 +33,7 @@ function MovieDetails(props) {
           onClick={() =>
             socket.emit(EVENT_TYPES.watchTrailer, {
               title,
-              trailerUrl: trailer
+              trailerUrl: trailer,
             })
           }
         >
@@ -48,10 +48,10 @@ function MovieDetails(props) {
         </Button>
       </WatchButtonsContainer>
       <VideoControlsContainer>
-        <Button onClick={() => socket.emit(EVENT_TYPES.pauseTrailer)}>
+        <Button onClick={() => socket.emit(EVENT_TYPES.pause)}>
           <PauseCircle size={THEME.spacing.xLarge} />
         </Button>
-        <Button onClick={() => socket.emit(EVENT_TYPES.playTrailer)}>
+        <Button onClick={() => socket.emit(EVENT_TYPES.play)}>
           <PlayCircle size={THEME.spacing.xLarge} />
         </Button>
       </VideoControlsContainer>
@@ -61,7 +61,7 @@ function MovieDetails(props) {
 }
 
 const Container = styled.div`
-  background-color: ${props => props.theme.colors.backgroundSecondary};
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +78,7 @@ const Poster = styled.img`
 const Title = styled.p`
   text-align: center;
   font-size: 32px;
-  color: ${props => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   margin-bottom: 30px;
   margin-top: 0;
 `;
@@ -90,29 +90,29 @@ const WatchButtonsContainer = styled.div`
 const BackButton = styled(Title)`
   cursor: pointer;
   align-self: start;
-  margin-left: ${props => props.theme.spacing.small}px;
-  margin-bottom: ${props => props.theme.spacing.small}px;
-  margin-top: ${props => props.theme.spacing.small}px;
+  margin-left: ${(props) => props.theme.spacing.small}px;
+  margin-bottom: ${(props) => props.theme.spacing.small}px;
+  margin-top: ${(props) => props.theme.spacing.small}px;
 `;
 
 const VideoControlsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: ${props => props.theme.spacing.small}px;
+  margin-top: ${(props) => props.theme.spacing.small}px;
 `;
 
 const Button = styled.button`
   border: none;
   color: white;
   font-weight: bold;
-  font-size: ${props => props.theme.spacing.large}px;
-  background-color: ${props => props.theme.colors.secondary};
-  border-radius: ${props => props.theme.spacing.small}px;
-  padding: ${props => props.theme.spacing.small}px;
+  font-size: ${(props) => props.theme.spacing.large}px;
+  background-color: ${(props) => props.theme.colors.secondary};
+  border-radius: ${(props) => props.theme.spacing.small}px;
+  padding: ${(props) => props.theme.spacing.small}px;
   & > svg {
     vertical-align: middle;
   }
-  margin-right: ${props => props.theme.spacing.xSmall}px;
+  margin-right: ${(props) => props.theme.spacing.xSmall}px;
   &:last-child {
     margin-right: 0;
   }
