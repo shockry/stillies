@@ -1,4 +1,7 @@
-export const SOCKET_URL = "http://localhost:4000";
+export const SOCKET_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : "https://stillies-backend.herokuapp.com/";
 
 export const EVENT_TYPES = {
   getMovies: "library/get",
