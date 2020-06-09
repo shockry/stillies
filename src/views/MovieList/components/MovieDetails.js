@@ -83,7 +83,7 @@ const Title = styled.p`
   text-align: center;
   font-size: 32px;
   color: ${(props) => props.theme.colors.primary};
-  margin-top: 0;
+  margin-top: ${(props) => props.theme.spacing.small}px;
   margin-bottom: 0;
 `;
 
