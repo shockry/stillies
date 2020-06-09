@@ -21,6 +21,7 @@ const Img = styled.img`
   width: 150px;
   height: 200px;
   object-fit: cover;
+  box-shadow: 0px 0px 8px 2px black;
 `;
 
 const Title = styled.p`
