@@ -22,6 +22,7 @@ const Img = styled.img`
   height: 200px;
   object-fit: cover;
   box-shadow: 0px 0px 8px 2px black;
+  border-radius: 2px;
 `;
 
 const Title = styled.p`

@@ -77,6 +77,7 @@ const Poster = styled.img`
   height: 490px;
   object-fit: cover;
   box-shadow: 0px 0px 8px 4px black;
+  border-radius: 5px;
 `;
 
 const Title = styled.p`
