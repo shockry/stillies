@@ -8,17 +8,17 @@ import { EVENT_TYPES } from "../../constants";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
-  const socket = useContext(socketContext);
+  const { socket, room } = useContext(socketContext);
   const { path, url } = useRouteMatch();
 
   useEffect(() => {
-    socket.emit(EVENT_TYPES.getMovies);
     socket.on(EVENT_TYPES.setMovies, setMovies);
+    socket.emit(EVENT_TYPES.getMovies, room);
 
     return () => {
       socket.off(EVENT_TYPES.setMovies);
     };
-  }, [socket]);
+  }, [room, socket]);
 
   if (movies.length === 0) {
     return <Container>Getting movie list...</Container>;
