@@ -8,7 +8,7 @@ import { EVENT_TYPES, THEME } from "../../../constants";
 function MovieDetails({ movies }) {
   const { movieId } = useParams();
   const history = useHistory();
-  const socket = useContext(socketContext);
+  const { socket, room } = useContext(socketContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,27 +33,31 @@ function MovieDetails({ movies }) {
       <WatchButtonsContainer>
         <Button
           onClick={() =>
-            socket.emit(EVENT_TYPES.watchTrailer, {
-              title,
-              trailerUrl: trailer,
-            })
+            socket.emit(
+              EVENT_TYPES.watchTrailer,
+              {
+                title,
+                trailerUrl: trailer,
+              },
+              room
+            )
           }
         >
           Watch trailer
         </Button>
         <Button
           onClick={() =>
-            socket.emit(EVENT_TYPES.watchMovie, { title, nameOnSystem })
+            socket.emit(EVENT_TYPES.watchMovie, { title, nameOnSystem }, room)
           }
         >
           Watch movie
         </Button>
       </WatchButtonsContainer>
       <VideoControlsContainer>
-        <Button onClick={() => socket.emit(EVENT_TYPES.pause)}>
+        <Button onClick={() => socket.emit(EVENT_TYPES.pause, room)}>
           <PauseCircle size={THEME.spacing.xLarge} />
         </Button>
-        <Button onClick={() => socket.emit(EVENT_TYPES.play)}>
+        <Button onClick={() => socket.emit(EVENT_TYPES.play, room)}>
           <PlayCircle size={THEME.spacing.xLarge} />
         </Button>
       </VideoControlsContainer>
